@@ -18,8 +18,9 @@ services:
       - '--web.enable-lifecycle'
     ports:
       - 9090:9090
-    networks:
-      - monitoring
+#    networks:
+#      - monitoring
+    network_mode: "host"
 
 
 volumes:
