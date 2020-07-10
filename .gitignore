@@ -17,3 +17,4 @@
 .DS_Store
 
 prometheus_data/
+grafana_data/
