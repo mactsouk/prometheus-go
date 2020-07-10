@@ -2,7 +2,7 @@
 global:
     scrape_interval: 5s
     external_labels:
-        monitor: 'FSight'
+        monitor: 'GoApp'
 
 scrape_configs:
   - job_name: 'prometheus'
