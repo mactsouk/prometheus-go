@@ -41,6 +41,8 @@ services:
   alert-manager:
     image: prom/alertmanager:latest
     container_name: alertmanager
+    depends_on:
+      - prometheus
     restart: always
     networks:
       - monitoring
