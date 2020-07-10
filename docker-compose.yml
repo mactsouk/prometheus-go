@@ -38,7 +38,16 @@ services:
       - monitoring
     volumes:
       - ./grafana_data/:/var/lib/grafana/
-      
+  alert-manager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    restart: always
+    networks:
+      - monitoring
+    ports:
+      - 9093:9093
+      - 9094:9094
+
 volumes:
     grafana_data: {}
     prometheus_data: {}
