@@ -12,4 +12,4 @@ scrape_configs:
   - job_name: goapp
     scrape_interval: 10s
     static_configs:
-       - targets: ['localhost:2112']
+       - targets: ['192.168.1.200:1234']

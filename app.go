@@ -14,32 +14,34 @@ import (
 // PORT is the TCP port number the server will listen to
 var PORT = ":1234"
 
+// Depending on what kind of information you want to collect and expose,
+// you will have to use a different metric type.
 var (
 	counter = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "golang",
-			Name:      "myCounter",
+			Namespace: "custom",
+			Name:      "my_counter",
 			Help:      "This is my counter",
 		})
 
 	gauge = prometheus.NewGauge(
 		prometheus.GaugeOpts{
-			Namespace: "golang",
-			Name:      "myGauge",
+			Namespace: "custom",
+			Name:      "my_gauge",
 			Help:      "This is my gauge",
 		})
 
 	histogram = prometheus.NewHistogram(
 		prometheus.HistogramOpts{
-			Namespace: "golang",
-			Name:      "myHistogram",
+			Namespace: "custom",
+			Name:      "my_histogram",
 			Help:      "This is my histogram",
 		})
 
 	summary = prometheus.NewSummary(
 		prometheus.SummaryOpts{
-			Namespace: "golang",
-			Name:      "mySummary",
+			Namespace: "custom",
+			Name:      "my_summary",
 			Help:      "This is my summary",
 		})
 )
@@ -62,7 +64,7 @@ func main() {
 			histogram.Observe(rand.Float64() * 10)
 			summary.Observe(rand.Float64() * 10)
 
-			time.Sleep(time.Second)
+			time.Sleep(2 * time.Second)
 		}
 	}()
 
