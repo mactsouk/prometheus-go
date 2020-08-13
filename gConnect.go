@@ -20,8 +20,8 @@ var PORT = ":2345"
 var (
 	counter = prometheus.NewCounter(
 		prometheus.CounterOpts{
-			Namespace: "custom",
-			Name:      "my_counter",
+			Namespace: "GMAIL",
+			Name:      "number_of_emails",
 			Help:      "# of emails in the Gmail account",
 		})
 )
@@ -40,7 +40,7 @@ func main() {
 		return
 	}
 
-	log.Println(gmailService)
+	log.Printf("%+v\n", gmailService)
 
 	go func() {
 		for {
