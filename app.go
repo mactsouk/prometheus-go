@@ -47,7 +47,6 @@ var (
 )
 
 func main() {
-
 	rand.Seed(time.Now().Unix())
 
 	http.Handle("/metrics", promhttp.Handler())

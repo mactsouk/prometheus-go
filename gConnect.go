@@ -11,7 +11,7 @@ import (
 )
 
 // PORT is the TCP port number the server will listen to
-var PORT = ":1234"
+var PORT = ":2345"
 
 var (
 	counter = prometheus.NewCounter(
