@@ -31,9 +31,9 @@ func main() {
 	http.Handle("/metrics", promhttp.Handler())
 	prometheus.MustRegister(counter)
 
-	APIKEy := os.Getenv("GMAIL")
+	APIKey := os.Getenv("GMAIL")
 	ctx := context.Background()
-	gmailService, err := gmail.NewService(ctx, option.WithAPIKey(APIKEy))
+	gmailService, err := gmail.NewService(ctx, option.WithAPIKey(APIKey))
 
 	if err != nil {
 		log.Println(err)
