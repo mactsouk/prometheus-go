@@ -22,11 +22,11 @@ import (
 var PORT = ":2345"
 
 var (
-	counter = prometheus.NewCounter(
+	messages = prometheus.NewCounter(
 		prometheus.CounterOpts{
 			Namespace: "GMAIL",
-			Name:      "number_of_emails",
-			Help:      "# of emails in the Gmail account",
+			Name:      "number_of_messages",
+			Help:      "This is the number of messages",
 		})
 )
 
@@ -120,6 +120,8 @@ func main() {
 				return
 			}
 			fmt.Println("Number of messages:", len(msgs.Messages))
+			totalMessages := len(msgs.Messages)
+			messages.Add(float64(totalMessages))
 			time.Sleep(5 * time.Second)
 		}
 	}()
