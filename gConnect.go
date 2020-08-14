@@ -112,11 +112,6 @@ func main() {
 		return
 	}
 
-	// fmt.Printf("%T\n", msgs.Messages)
-	// for i, v := range msgs.Messages {
-	//		fmt.Println(i, v.ThreadId)
-	//	}
-
 	go func() {
 		for {
 			msgs, err := gmailService.Users.Messages.List("me").Do()
