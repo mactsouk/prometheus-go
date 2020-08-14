@@ -120,8 +120,8 @@ func main() {
 				return
 			}
 			fmt.Println("Number of messages:", len(msgs.Messages))
-			totalMessages := len(msgs.Messages)
-			messages.Add(float64(totalMessages))
+			totalMessages := float64(len(msgs.Messages))
+			messages.Add(totalMessages)
 			time.Sleep(5 * time.Second)
 		}
 	}()
