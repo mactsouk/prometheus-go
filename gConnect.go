@@ -100,15 +100,11 @@ func main() {
 
 	rand.Seed(time.Now().Unix())
 	http.Handle("/metrics", promhttp.Handler())
-	prometheus.MustRegister(counter)
+	prometheus.MustRegister(messages)
 
 	gmailService, err := gmail.New(client)
 	if err != nil {
-		log.Fatalf("Unable to retrieve Gmail client: %v", err)
-	}
-
-	if err != nil {
-		log.Println(err)
+		log.Println("Cannot create email client:", err)
 		return
 	}
 
