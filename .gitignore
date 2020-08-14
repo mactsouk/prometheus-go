@@ -19,3 +19,4 @@
 prometheus_data/
 grafana_data/
 .env
+credentials.json
