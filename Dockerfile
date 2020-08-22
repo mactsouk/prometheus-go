@@ -9,16 +9,16 @@ RUN apk update && apk add --no-cache git
 
 RUN mkdir /pro
 ADD ./gConnect.go /pro/
-ADD ./credentials.json /pro/
-ADD ./token.json /pro/
 WORKDIR /pro
-EXPOSE 2345
 RUN go get -d -v ./...
 RUN go build -o server gConnect.go
 
-FROM scratch
+FROM alpine:latest
 
 RUN mkdir /pro
+ADD ./credentials.json /pro/
+ADD ./token.json /pro/
 COPY --from=builder /pro/server /pro/server
-
+EXPOSE 2345
+WORKDIR /pro
 CMD ["/pro/server"]
