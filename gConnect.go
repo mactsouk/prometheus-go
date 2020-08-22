@@ -1,3 +1,5 @@
+// https://stackoverflow.com/questions/43057478/google-api-go-client-listing-messages-w-label-and-fetching-header-fields
+
 package main
 
 import (
@@ -6,7 +8,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"math/rand"
 	"net/http"
 	"os"
 	"time"
@@ -27,6 +28,20 @@ var (
 			Namespace: "GMAIL",
 			Name:      "number_of_messages",
 			Help:      "This is the number of messages",
+		})
+
+	readMessages = prometheus.NewCounter(
+		prometheus.CounterOpts{
+			Namespace: "GMAIL",
+			Name:      "number_of_read_messages",
+			Help:      "This is the number of read messages",
+		})
+
+	unreadMessages = prometheus.NewCounter(
+		prometheus.CounterOpts{
+			Namespace: "GMAIL",
+			Name:      "number_of_unread_messages",
+			Help:      "This is the number of unread messages",
 		})
 )
 
@@ -98,7 +113,6 @@ func main() {
 	}
 	client := getClient(config)
 
-	rand.Seed(time.Now().Unix())
 	http.Handle("/metrics", promhttp.Handler())
 	prometheus.MustRegister(messages)
 
@@ -115,9 +129,30 @@ func main() {
 				log.Println(err)
 				return
 			}
-			fmt.Println("Number of messages:", len(msgs.Messages))
+
 			totalMessages := float64(len(msgs.Messages))
+			fmt.Println("Number of messages:\t", totalMessages)
 			messages.Add(totalMessages)
+
+			read, err := gmailService.Users.Messages.List("me").Q("is:read").Do()
+			if err != nil {
+				log.Println(err)
+				return
+			}
+
+			totalReadMessages := float64(len(read.Messages))
+			fmt.Println("Read messages:\t\t", totalReadMessages)
+			readMessages.Add(totalReadMessages)
+
+			unread, err := gmailService.Users.Messages.List("me").Q("is:unread").Do()
+			if err != nil {
+				log.Println(err)
+				return
+			}
+			totalUnreadMessages := float64(len(unread.Messages))
+			fmt.Println("Unread messages:\t", totalUnreadMessages)
+			unreadMessages.Add(totalUnreadMessages)
+
 			time.Sleep(5 * time.Second)
 		}
 	}()
