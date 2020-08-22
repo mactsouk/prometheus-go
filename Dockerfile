@@ -1,3 +1,6 @@
+# docker build -t pro-gmail .
+# docker run -it -p 2345:2345 pro-gmail
+
 FROM golang
 RUN mkdir /pro
 ADD ./gConnect.go /pro/
