@@ -1,6 +1,14 @@
 version: "3"
 
 services:
+  pro-gmail:
+    image: pro-gmail
+    container_name: Gmail
+    restart: always
+    ports:
+      - 2345:2345
+    networks: 
+      - monitoring
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus

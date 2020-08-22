@@ -23,22 +23,22 @@ import (
 var PORT = ":2345"
 
 var (
-	messages = prometheus.NewCounter(
-		prometheus.CounterOpts{
+	messages = prometheus.NewGauge(
+		prometheus.GaugeOpts{
 			Namespace: "GMAIL",
 			Name:      "number_of_messages",
 			Help:      "This is the number of messages",
 		})
 
-	readMessages = prometheus.NewCounter(
-		prometheus.CounterOpts{
+	readMessages = prometheus.NewGauge(
+		prometheus.GaugeOpts{
 			Namespace: "GMAIL",
 			Name:      "number_of_read_messages",
 			Help:      "This is the number of read messages",
 		})
 
-	unreadMessages = prometheus.NewCounter(
-		prometheus.CounterOpts{
+	unreadMessages = prometheus.NewGauge(
+		prometheus.GaugeOpts{
 			Namespace: "GMAIL",
 			Name:      "number_of_unread_messages",
 			Help:      "This is the number of unread messages",
@@ -134,7 +134,7 @@ func main() {
 
 			totalMessages := float64(len(msgs.Messages))
 			fmt.Println("Number of messages:\t", totalMessages)
-			messages.Add(totalMessages)
+			messages.Set(totalMessages)
 
 			read, err := gmailService.Users.Messages.List("me").Q("is:read").Do()
 			if err != nil {
@@ -143,8 +143,8 @@ func main() {
 			}
 
 			totalReadMessages := float64(len(read.Messages))
-			fmt.Println("Read messages:\t\t", totalReadMessages)
-			readMessages.Add(totalReadMessages)
+			fmt.Println("Read messages:\t", totalReadMessages)
+			readMessages.Set(totalReadMessages)
 
 			unread, err := gmailService.Users.Messages.List("me").Q("is:unread").Do()
 			if err != nil {
@@ -153,7 +153,7 @@ func main() {
 			}
 			totalUnreadMessages := float64(len(unread.Messages))
 			fmt.Println("Unread messages:\t", totalUnreadMessages)
-			unreadMessages.Add(totalUnreadMessages)
+			unreadMessages.Set(totalUnreadMessages)
 
 			time.Sleep(5 * time.Second)
 		}
