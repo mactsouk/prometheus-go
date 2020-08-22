@@ -115,6 +115,8 @@ func main() {
 
 	http.Handle("/metrics", promhttp.Handler())
 	prometheus.MustRegister(messages)
+	prometheus.MustRegister(readMessages)
+	prometheus.MustRegister(unreadMessages)
 
 	gmailService, err := gmail.New(client)
 	if err != nil {
