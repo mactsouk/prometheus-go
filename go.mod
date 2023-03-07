@@ -3,7 +3,7 @@ module github.com/mactsouk/gmail-go
 go 1.17
 
 require (
-	github.com/prometheus/client_golang v1.11.0
+	github.com/prometheus/client_golang v1.11.1
 	golang.org/x/oauth2 v0.0.0-20211005180243-6b3c2da341f1
 	google.golang.org/api v0.58.0
 )
